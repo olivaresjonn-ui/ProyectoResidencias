@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -22,8 +24,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "expedientes_documentos")
 public class ExpedientesDocumentos {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_documento")
-    private String idDocumento;
+    private Long idDocumento;
+
+    @Column(name = "folio_documento", nullable = false, unique = true)
+    private String folioDocumento;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_postulacion", referencedColumnName = "id_postulacion", nullable = false)

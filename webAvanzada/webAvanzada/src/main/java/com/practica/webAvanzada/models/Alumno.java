@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 
 public class Alumno {
     @Id
-    @Column(name = "numero_control")
+    @Column(name = "numero_control", nullable = false, unique = true)
     private String numeroControl;
 
     @OneToOne(optional = false)

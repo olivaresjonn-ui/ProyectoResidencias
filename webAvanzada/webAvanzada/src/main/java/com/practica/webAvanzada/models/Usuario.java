@@ -2,6 +2,7 @@ package com.practica.webAvanzada.models;
 import java.time.LocalDateTime;
 
 import com.practica.webAvanzada.models.enums.RolUser;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,8 +29,9 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String correo;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
-    private String contrasena;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
