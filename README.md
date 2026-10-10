@@ -9,7 +9,6 @@ Aplicación para gestionar perfiles, proyectos, postulaciones y documentos de re
 | `FrontendResidencias` | Interfaz Next.js y Tailwind CSS; rutas que consumen las APIs. |
 | `webAvanzada/webAvanzada` | Backend Spring Boot con autenticación JWT y acceso a PostgreSQL. |
 | `ml-recomendador` | Microservicio FastAPI con recomendaciones mediante TF-IDF y similitud coseno. |
-| `bruno/Residencias` | Peticiones para consultar las APIs desde Bruno. |
 
 ## Ejecutar localmente
 

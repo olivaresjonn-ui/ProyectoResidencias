@@ -38,7 +38,7 @@ Copia el texto generado en `JWT_SECRET` de `config/database.properties`. El back
 
 ### Probar el acceso con Bruno
 
-La colección lista para abrir está en `bruno/Residencias` en la raíz del repositorio. Usa **Run collection** para ejecutar login, sesión y consulta de usuarios en orden; el JWT queda solo como variable de ejecución.
+Puedes crear las siguientes peticiones manualmente en Bruno u otro cliente HTTP.
 
 1. Crea una petición **POST** a `http://localhost:8080/api/auth/login`.
 2. En **Body → JSON**, usa `{"correo":"correo-de-la-cuenta","password":"contraseña-de-la-cuenta"}`. Los nombres de las propiedades son `correo` y `password`.
