@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Residencias",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

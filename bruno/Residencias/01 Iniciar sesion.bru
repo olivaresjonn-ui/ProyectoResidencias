@@ -1,0 +1,36 @@
+meta {
+  name: Iniciar sesión
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "correo": "{{?Correo registrado}}",
+    "password": "{{?Contraseña}}"
+  }
+}
+
+script:post-response {
+  const body = res.getBody();
+  if (res.getStatus() === 200 && body && typeof body.accessToken === "string") {
+    bru.setVar("accessToken", body.accessToken);
+  }
+}
+
+tests {
+  test("el login responde 200 y devuelve el token", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody()).to.have.property("accessToken");
+  });
+}

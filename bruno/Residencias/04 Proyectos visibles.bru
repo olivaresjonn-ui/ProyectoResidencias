@@ -1,0 +1,22 @@
+meta {
+  name: Proyectos visibles
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/api/proyectos
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+tests {
+  test("el rol autenticado puede consultar su catálogo permitido", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody()).to.be.an("array");
+  });
+}

@@ -1,0 +1,12 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Recomendacion = { idProyecto: number; puntaje: number; motivos: string[]; proyecto: { titulo: string; tecnologiasRequeridas: string; empresa?: { razonSocial?: string } } };
+
+export default function Recomendaciones() {
+  const [items, setItems] = useState<Recomendacion[]>([]);
+  const [estado, setEstado] = useState("Cargando sugerencias personalizadas…");
+  useEffect(() => { fetch("/api/recomendaciones", { cache: "no-store" }).then(async (r) => { const datos = await r.json() as { recomendaciones?: Recomendacion[]; message?: string }; if (!r.ok) throw new Error(datos.message ?? "El recomendador no está disponible en este momento."); return datos as { recomendaciones: Recomendacion[] }; }).then((d) => { setItems(d.recomendaciones); setEstado(d.recomendaciones.length ? "" : "Aún no hay vacantes disponibles para recomendar. Puedes completar tus habilidades desde tu perfil."); }).catch((e: unknown) => setEstado(e instanceof Error ? e.message : "No se pudieron cargar sugerencias.")); }, []);
+  return <section className="mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-5 md:p-6"><div className="flex items-start justify-between gap-4"><div><p className="text-[11px] font-bold uppercase tracking-widest text-brand">Recomendador inteligente</p><h2 className="mt-1 text-lg font-bold">Vacantes que conectan con tu perfil</h2><p className="mt-1 text-xs text-slate-500">Sugerencias calculadas a partir de tu carrera y habilidades.</p></div><div className="flex shrink-0 items-center gap-3"><a href="/perfil" className="text-xs font-semibold text-brand hover:underline">Editar perfil →</a><span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-xl text-brand shadow-sm">✦</span></div></div>{estado && <p className="mt-4 text-sm text-slate-500">{estado}</p>}<div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">{items.map((item) => <article key={item.idProyecto} className="rounded-xl border border-blue-100 bg-white p-4"><div className="flex items-start justify-between gap-2"><h3 className="font-semibold">{item.proyecto.titulo}</h3><span className="rounded-full bg-emerald-50 px-2 py-1 text-[10px] font-bold text-emerald-700">{item.puntaje}%</span></div><p className="mt-1 text-xs text-slate-500">{item.proyecto.empresa?.razonSocial ?? "Empresa"}</p><p className="mt-2 text-[11px] text-slate-500">Coincide: {item.motivos.join(", ") || item.proyecto.tecnologiasRequeridas}</p></article>)}</div></section>;
+}

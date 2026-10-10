@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import com.practica.webAvanzada.models.Empresa;
+import com.practica.webAvanzada.models.enums.EstadoVerificacion;
 import com.practica.webAvanzada.repositories.EmpresaRepositorio;
 
 @Service
@@ -24,6 +25,17 @@ public class EmpresaService {
 
     public Optional<Empresa> obtenerPorId(Long id) {
         return empresaRepositorio.findById(id);
+    }
+
+    public Optional<Empresa> obtenerPorUsuario(Long idUsuario) {
+        return empresaRepositorio.findByUsuario_IdUsuario(idUsuario);
+    }
+
+    public Empresa actualizarVerificacion(Long id, EstadoVerificacion estadoVerificacion) {
+        return empresaRepositorio.findById(id).map(empresa -> {
+            empresa.setEstadoVerificacion(estadoVerificacion);
+            return empresaRepositorio.save(empresa);
+        }).orElse(null);
     }
 
     public Empresa actualizar(Long id, Empresa datos) {

@@ -1,0 +1,35 @@
+# Configuración local y secretos
+**/config/database.properties
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+**/.env.local
+**/.env.*.local
+
+# Dependencias y compilación
+**/node_modules/
+**/.next/
+**/target/
+**/.venv/
+**/venv/
+**/__pycache__/
+**/*.py[cod]
+
+# Datos de usuario locales
+**/uploads/
+**/storage/
+
+# Checkout anidado del mismo repositorio
+/ProyectoResidencias/
+/.vscode/
+
+# Cachés, registros y archivos del sistema
+**/*.tsbuildinfo
+**/*.log
+**/.pytest_cache/
+**/.ruff_cache/
+**/.DS_Store
+**/Thumbs.db
+**/*.tmp
+**/*~

@@ -26,6 +26,10 @@ public class Alumno {
     @OneToOne(optional = false)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario", nullable = false, unique = true)
     private Usuario usuario;
+
+    @jakarta.persistence.ManyToOne
+    @JoinColumn(name = "id_asesor", referencedColumnName = "id_asesor")
+    private AsesorAcademico asesorAcademico;
     
     @Column(nullable = false)
     private String nombreCompleto;

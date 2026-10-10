@@ -1,0 +1,22 @@
+meta {
+  name: Consultar sesión
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/auth/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+tests {
+  test("el token identifica una sesión activa", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody()).to.have.property("rol");
+  });
+}

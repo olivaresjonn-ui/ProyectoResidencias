@@ -1,0 +1,10 @@
+# Copia este archivo como config/database.properties y sustituye el valor local.
+DB_URL=jdbc:postgresql://localhost:5432/residencias
+DB_USERNAME=postgres
+DB_PASSWORD=pon_aqui_tu_contrasena_local
+JWT_SECRET=pon_aqui_una_clave_base64_aleatoria_de_32_bytes_o_mas
+# Opcional: validate (predeterminado), update, create o create-drop.
+JPA_DDL_AUTO=validate
+# Opcionales: solo crean el primer ADMIN si todavía no existe ninguno.
+ADMIN_BOOTSTRAP_EMAIL=
+ADMIN_BOOTSTRAP_PASSWORD=

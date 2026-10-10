@@ -1,0 +1,47 @@
+meta {
+  name: Recomendación ML sintética
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8001/recomendar
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "carrera": "Ingeniería en Sistemas",
+    "habilidades": "Java, PostgreSQL, APIs REST",
+    "limite": 2,
+    "proyectos": [
+      {
+        "idProyecto": 101,
+        "titulo": "API de inventario",
+        "descripcion": "Servicios backend para control de productos",
+        "objetivo": "Crear una API REST segura",
+        "tecnologiasRequeridas": "Java, PostgreSQL, Spring"
+      },
+      {
+        "idProyecto": 202,
+        "titulo": "Diseño de identidad visual",
+        "descripcion": "Crear piezas gráficas para redes sociales",
+        "objetivo": "Desarrollar materiales visuales",
+        "tecnologiasRequeridas": "Illustrator, Photoshop"
+      }
+    ]
+  }
+}
+
+tests {
+  test("FastAPI prioriza el proyecto con más términos afines", function () {
+    expect(res.getStatus()).to.equal(200);
+    expect(res.getBody().modelo).to.equal("tfidf-cosine-v1");
+    expect(res.getBody().recomendaciones[0].idProyecto).to.equal(101);
+  });
+}

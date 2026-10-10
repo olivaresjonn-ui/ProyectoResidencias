@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 import com.practica.webAvanzada.models.AsesorAcademico;
 import com.practica.webAvanzada.services.AsesorAcademicoService;
@@ -24,6 +26,14 @@ public class AsesorAcademicoController {
 
     private final AsesorAcademicoService asesorAcademicoService;
 
+    @GetMapping("/mio")
+    public ResponseEntity<AsesorAcademico> obtenerMiPerfil(@AuthenticationPrincipal Jwt jwt) {
+        Number idUsuario = jwt.getClaim("idUsuario");
+        return asesorAcademicoService.obtenerAsesorPorUsuario(idUsuario.longValue())
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<AsesorAcademico> crearAsesor(@RequestBody AsesorAcademico asesorAcademico) {
         AsesorAcademico asesorCreado = asesorAcademicoService.crearAsesorAcademico(asesorAcademico);
@@ -36,7 +46,7 @@ public class AsesorAcademicoController {
     }
 
     @GetMapping("/{idAsesor}")
-    public ResponseEntity<AsesorAcademico> obtenerAsesorPorId(@PathVariable Long idAsesor) {
+    public ResponseEntity<AsesorAcademico> obtenerAsesorPorId(@PathVariable("idAsesor") Long idAsesor) {
         return asesorAcademicoService.obtenerAsesorPorId(idAsesor)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -44,7 +54,7 @@ public class AsesorAcademicoController {
 
     @PutMapping("/{idAsesor}")
     public ResponseEntity<AsesorAcademico> actualizarAsesor(
-            @PathVariable Long idAsesor,
+            @PathVariable("idAsesor") Long idAsesor,
             @RequestBody AsesorAcademico asesorActualizado) {
 
         AsesorAcademico asesor = asesorAcademicoService.actualizarAsesor(
@@ -58,7 +68,7 @@ public class AsesorAcademicoController {
     }
 
     @DeleteMapping("/{idAsesor}")
-    public ResponseEntity<Void> eliminarAsesor(@PathVariable Long idAsesor) {
+    public ResponseEntity<Void> eliminarAsesor(@PathVariable("idAsesor") Long idAsesor) {
         return asesorAcademicoService.eliminarAsesor(idAsesor)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();

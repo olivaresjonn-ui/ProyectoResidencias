@@ -27,6 +27,10 @@ public class AsesorAcademicoService {
         return asesorAcademicoRepositorio.findById(idAsesor);
     }
 
+    public Optional<AsesorAcademico> obtenerAsesorPorUsuario(Long idUsuario) {
+        return asesorAcademicoRepositorio.findByUsuario_IdUsuario(idUsuario);
+    }
+
     public AsesorAcademico actualizarAsesor(Long idAsesor, AsesorAcademico asesorActualizado) {
 
     Optional<AsesorAcademico> asesorExistenteOptional =
